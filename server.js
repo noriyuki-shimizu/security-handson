@@ -8,7 +8,14 @@ const port = 3000
 
 app.set('view engine', 'ejs')
 
-app.use(express.static('public'))
+app.use(express.static('public', {
+  setHeaders: (res, _, __) => {
+    // 同一オリジンのみ許可
+    // res.header('X-Frame-Options', 'SAMEORIGIN')
+    // 全てのオリジンからも許可しない
+    res.header('X-Frame-Options', 'DENY')
+  }
+}))
 
 app.use('/api', api)
 app.use('/csrf', csrf)

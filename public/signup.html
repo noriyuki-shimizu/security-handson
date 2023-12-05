@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>アカウント作成</title>
+    <style>
+      #signup {
+        display: flex;
+        justify-content: center;
+      }
+
+      #signup legend {
+        text-align: center;
+      }
+
+      .signup-input,
+      #submit {
+        display: block;
+        margin: 5px 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="signup" action="/signup" method="POST">
+      <fieldset>
+        <legend class="form-caption">アカウント作成</legend>
+        <div>
+          <label for="username">メールアドレス</label>
+          <input
+            id="username"
+            type="email"
+            name="username"
+            class="signup-input"
+            required
+            autocomplete="email"
+          />
+        </div>
+        <div>
+          <label for="password">パスワード</label>
+          <!--
+            アカウント登録画面やパスワード更新画面の新しいパスワード入力欄では autocomplete に「new-password」を指定
+            ログイン画面の現在のパスワード入力欄では、autocomplete に「current-password」を指定
+          -->
+          <input
+            id="new-password"
+            type="password"
+            name="password"
+            class="signup-input"
+            required
+            pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+            title="パスワードには8文字以上の英数字を入力してください"
+            autocomplete="new-password"
+          />
+        </div>
+        <div class="signup-item">
+          <input type="checkbox" id="display-password" />
+          <label for="display-password">パスワードを表示する</label>
+        </div>
+        <p><small>パスワードには8文字以上の英数字を入力してください</small></p>
+        <button id="submit" type="submit">アカウント作成</button>
+      </fieldset>
+    </form>
+    <script>
+      const checkbox = document.querySelector('#display-password')
+      checkbox.addEventListener('change', () => {
+        if (checkbox.checked === true) {
+          password.type = 'text'
+        } else {
+          password.type = 'password'
+        }
+      })
+    </script>
+  </body>
+</html>
